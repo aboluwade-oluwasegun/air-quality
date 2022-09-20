@@ -10,9 +10,9 @@ import { airQuality } from './src/jobs/airQuality.js';
 
 import { readFile } from 'fs/promises';
 
-// const swaggerDocument = JSON.parse(
-//   await readFile(new URL('./swagger.json', import.meta.url))
-// );
+const swaggerDocument = JSON.parse(
+  await readFile(new URL('./swagger.json', import.meta.url))
+);
 
 const app = express();
 
@@ -31,17 +31,17 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(airQualityRouter);
 
 app.all('*', () => {
-  throw new NotFoundError('Route not found');
+  throw new Error('Route not found');
 });
 
-// cron.schedule('* * * * *', () => {
-//   airQuality().then(() => {
-//     console.log(`Cron job fired at ${Date()}`);
-//   });
-// });
+cron.schedule('* * * * *', () => {
+  airQuality().then(() => {
+    console.log(`Cron job fired at ${Date()}`);
+  });
+});
 
 export { app };
