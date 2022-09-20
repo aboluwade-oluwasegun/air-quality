@@ -1,48 +1,47 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "air",
-      "version": "1.0"
-    },
-    "servers": [
-      {
-        "url": "http://localhost:3001"
-      }
-    ],
-    "paths": {
-      "/api/get-air-quality": {
-        "post": {
-          "summary": "Get Pollution data for a location",
-          "tags": [],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "Result": {
-                        "type": "object",
-                        "properties": {
-                          "Pollution": {
-                            "type": "object",
-                            "properties": {
-                              "ts": {
-                                "type": "string"
-                              },
-                              "aqius": {
-                                "type": "number"
-                              },
-                              "mainus": {
-                                "type": "string"
-                              },
-                              "aqicn": {
-                                "type": "number"
-                              },
-                              "maincn": {
-                                "type": "string"
-                              }
+  "openapi": "3.0.0",
+  "info": {
+    "title": "air",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/get-air-quality": {
+      "post": {
+        "summary": "Get Pollution data for a location",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Result": {
+                      "type": "object",
+                      "properties": {
+                        "Pollution": {
+                          "type": "object",
+                          "properties": {
+                            "ts": {
+                              "type": "string"
+                            },
+                            "aqius": {
+                              "type": "number"
+                            },
+                            "mainus": {
+                              "type": "string"
+                            },
+                            "aqicn": {
+                              "type": "number"
+                            },
+                            "maincn": {
+                              "type": "string"
                             }
                           }
                         }
@@ -52,34 +51,62 @@
                 }
               }
             }
+          }
+        },
+        "operationId": "get-api-get-air-quality",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "string"
+                  },
+                  "lon": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "lat",
+                  "lon"
+                ]
+              }
+            }
           },
-          "operationId": "get-api-get-air-quality",
-          "requestBody": {
+          "description": "Provide the lattitude and longitude of the location you wish to get pollution data for"
+        }
+      }
+    },
+    "/api/get-datetime-for-highest-pollution-values": {
+      "get": {
+        "summary": "Retrieve datetime for highest pollution values",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "lat": {
-                      "type": "string"
-                    },
-                    "lon": {
+                    "datetime": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "lat",
-                    "lon"
+                    "datetime"
                   ]
                 }
               }
-            },
-            "description": "Provide the lattitude and longitude of the location you wish to get pollution data for"
+            }
           }
-        }
+        },
+        "operationId": "get-api-get-datetime-for-highest-pollution-values"
       }
-    },
-    "components": {
-      "schemas": {}
     }
+  },
+  "components": {
+    "schemas": {}
   }
+}

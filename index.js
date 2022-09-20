@@ -1,7 +1,15 @@
 import { app } from './app.js';
 import mongoose from 'mongoose';
+import { airQuality } from './src/jobs/airQuality.js';
+import cron from 'node-cron';
 
 const start = async () => {
+  cron.schedule('* * * * *', () => {
+    airQuality().then(() => {
+      console.log(`Cron job fired at ${Date()}`);
+    });
+  });
+
   if (!process.env.AIRVISUAL_API) {
     throw new Error('AIRVISUAL_API must be defined');
   }

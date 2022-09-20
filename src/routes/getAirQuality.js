@@ -6,6 +6,12 @@ const router = express.Router();
 router.post('/api/get-air-quality', async (req, res) => {
   const { lat, lon } = req.body;
 
+  if (!lat || !lon || typeof lat !== 'string' || typeof lon !== 'string') {
+    return res.send(
+      'Lattitude and longitude must be provided and they should be strings!'
+    );
+  }
+
   await axios
     .get(process.env.AIRVISUAL_API, {
       params: { lat, lon, key: process.env.API_KEY },
